@@ -22,12 +22,20 @@ export default {
   components: {
     Camera, Picture
   },
+  computed: {
+    portrait() {
+      return this.$store.state.portrait
+    }
+  },
   data () {return {
     videoMode: true,
   }},
   methods: {
     async takePicture() {
+      let ratio = (this.portrait) ? 9 / 16 : 16 / 9
       const canvas = document.querySelector("canvas")
+      canvas.width = (window.innerWidth < 1280) ? window.innerWidth : 1280;
+      canvas.height = window.innerWidth / ratio;
       const ctx = canvas.getContext("2d")
       ctx.imageSmoothingEnabled = true
       ctx.imageSmoothingQuality = "high"
@@ -44,8 +52,7 @@ export default {
     },
     deleteImg() {
       this.videoMode = true
-    }
-
+    },
   }
 }
 </script>

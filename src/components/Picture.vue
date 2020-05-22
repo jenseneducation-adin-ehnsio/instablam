@@ -21,8 +21,8 @@ export default {
     canvas {
         box-shadow: 4px 4px 12px 0px rgba($color: #000000, $alpha: .5);
         width: 90vw !important;
-        height: auto !important;
-        max-width: 720px;
+        max-width: 1280px !important;
+        max-height: 720px !important;
     }
 }
 @media screen and (min-width: 1000px) {
