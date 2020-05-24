@@ -7,27 +7,10 @@
 <script>
 export default {
   async created() {
-    let mobMatch = await this.mobileCheck()
-    this.$store.dispatch("checkView", mobMatch)
+    
   },
   methods: {
-    mobileCheck() {
-      
-      const toMatch = [
-        /Android/i,
-        /webOS/i,
-        /iPhone/i,
-        /iPad/i,
-        /iPod/i,
-        /BlackBerry/i,
-        /Windows Phone/i
-    ];
-
-    return toMatch.some((toMatchItem) => {
-        return navigator.userAgent.match(toMatchItem);
-    });
-
-    }
+    
   }
 }
 </script>

@@ -2,9 +2,9 @@
   <div class="home">
     
     <Camera v-show="videoMode" />
-    <button class="snap" v-show="videoMode" @click="takePicture">snap</button>
+    <button class="snap" v-show="videoMode" @click="takePicture"></button>
     <Picture v-show="!videoMode"/>
-    <button class="delete" v-show="!videoMode" @click="deleteImg">delete</button>    
+    <button class="delete" v-show="!videoMode" @click="deleteImg"></button>    
 
   </div>
 </template>
@@ -31,11 +31,16 @@ export default {
     async takePicture() {
       let ratio = (this.portrait) ? 1 / 1 : 16 / 9
       const canvas = document.querySelector("canvas")
+      const ctx = canvas.getContext("2d")
+      
       canvas.width = (window.innerWidth < 1280) ? window.innerWidth : 1280;
       canvas.height = window.innerWidth / ratio;
-      const ctx = canvas.getContext("2d")
       ctx.imageSmoothingEnabled = true
       ctx.imageSmoothingQuality = "high"
+
+      ctx.translate(canvas.width, 0);
+      ctx.scale(-1,1)
+
       await ctx.drawImage(document.querySelector("video"), 0, 0, canvas.width, canvas.height)
       this.videoMode = false      
     },
