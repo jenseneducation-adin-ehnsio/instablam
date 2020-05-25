@@ -1,14 +1,20 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import Brightness from '../views/Brightness.vue'
+import Contrast from '../views/Contrast.vue'
 
 Vue.use(VueRouter)
 
   const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: '',
+    component: Home,
+    children: [
+      { path: '', component: Brightness },
+      { path: 'contrast', component: Contrast }
+    ]
   },
 ]
 

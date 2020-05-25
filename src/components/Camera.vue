@@ -1,12 +1,14 @@
 <template>
     <div class="camera">
-        <div class="video-container">
-            <img v-if="portrait" class="turn"  @click="changeCamera" src="@/assets/camera-turn.png" alt="">
-            <video :src-object.prop.camel="streamSrc"
-            ref="video">
-            </video>
-        </div>
+        <video :src-object.prop.camel="streamSrc" ref="video" :class="{ mirror: isMirrored }" />
         
+        <div class="grid">
+            <img src="" alt="">
+            <button class="snap" @click="$emit('snap-button')" ></button>
+            <img v-if="!portrait" class="turn"  @click="changeCamera" src="@/assets/camera-turn.png" alt="">
+        </div>
+
+        <p>Developed by Adin Ehnsiö</p>
     </div>
 </template>
 
@@ -48,6 +50,9 @@ export default {
     computed: {
         portrait() {
             return this.$store.state.portrait
+        },
+        isMirrored() {
+            return this.$store.state.isMirrored
         }
     },
     async mounted() {
@@ -68,6 +73,7 @@ export default {
 
             let track = this.streamSrc.getTracks()[0];
             track.stop();
+            this.$store.dispatch('flipCamera')
             
             if(this.mobileFormat.video.facingMode == 'user') {
                 this.mobileFormat.video.facingMode = { 
@@ -93,9 +99,8 @@ export default {
                 console.log(error);
             }
         },
-
         mobileCheck() {
-      
+    
         const toMatch = [
                 /Android/i,
                 /webOS/i,
@@ -121,22 +126,40 @@ export default {
     align-items: center;
     display: flex;
     flex-direction: column;
-    .turn {
-        position: absolute;
-        margin-top: 5px;
-        margin-left: 10px;
-        height: 40px;
-        z-index: 999;
-        filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(29deg) brightness(103%) contrast(101%);
-
-   
-    }
     video {
         box-shadow: 4px 4px 12px 0px rgba($color: #000000, $alpha: .5);
         width: 100vw !important;
         height: auto !important;
         max-width: 960px !important;
-        
+    }
+    .grid {
+      width: 100vw !important;
+      max-width: 960px !important;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      margin: 20px 0;
+        .snap {
+            margin: auto;
+            width: 70px;
+            height: 70px;
+            font-weight: 700;
+            border-radius: 50%;
+            box-shadow: 4px 4px 12px 0px rgba($color: #000000, $alpha: .5);
+            background-color: transparent;
+            color: white;
+            border: 2px solid green;
+        } 
+        .snap:hover{
+            background-color: rgba($color: #44bd76, $alpha: .5)
+        }
+        .turn {
+        margin: auto;
+        height: 40px;
+        z-index: 999;
+        filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(29deg) brightness(103%) contrast(101%);
+    }
+    }
+    .mirror {
         transform: rotateY(180deg);
         -webkit-transform:rotateY(180deg); /* Safari and Chrome */
         -moz-transform:rotateY(180deg); /* Firefox */

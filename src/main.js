@@ -6,6 +6,9 @@ import firebase from "firebase/app";
 
 Vue.config.productionTip = false
 
+Vue.prototype.Caman = window.Caman;
+
+
 // if ('serviceWorker' in navigator) {
 //   navigator.serviceWorker.register('/sw.js')
 //   .then(function(registration) {

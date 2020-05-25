@@ -1,21 +1,27 @@
 <template>
   <div class="picture">
-    <div class="canvas-container">
-      <a class="download" id="download"></a>
+    <!-- Link to download img -->
+    <a id="download"></a> 
+    
+    <canvas data-caman-hidpi-disabled="true" id="canvas" ></canvas>
+
+    <div class="grid">
+      <img  src="" alt="">
+      <button class="delete" @click="deleteImg"></button>
       <img class="download" @click="downloadImg" src="@/assets/download.png" alt="">
-      <canvas id="canvas" ></canvas>
-      <Slider />
-      </div>
+    </div>
+    
+    <router-view 
+      @slide-brightness="adjustBrightness"
+      @slide-contrast="adjustContrast"
+    />
+
   </div>
 </template>
 
 <script>
-import Slider from '@/components/Slider.vue'
 
 export default {
-  components: {
-    Slider
-  },
 
   methods: {
     downloadImg() {
@@ -26,9 +32,21 @@ export default {
       link.setAttribute('href', img);
       link.click();
     },
-    adjustBrightness() {
+    deleteImg() {
+      this.$router.push('/')
+
+      window.location.reload(false); 
+    },
+    adjustBrightness(val) {
       window.Caman("#canvas", function () {
-        this.brightness(5).render();
+          this.revert()
+          this.brightness(val - 50).render()
+      });
+    },
+    adjustContrast(val) {
+      window.Caman("#canvas", function () {
+          this.revert()
+          this.contrast(val - 50).render()
       });
     }
   }
@@ -43,15 +61,10 @@ export default {
     display: flex;
     flex-direction: column;
     .download {
-        position: absolute;
-        margin-left: 10px;
-        margin-top: 10px;
+        margin: auto;
         height: 29px;
         width: 35px;
-        z-index: 999;
         filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(29deg) brightness(103%) contrast(101%);
-
-
     }
     .download:hover {
       cursor: pointer;
@@ -61,6 +74,28 @@ export default {
         width: 100vw !important;
         max-width: 960px !important;
         max-height: 540px !important;
+    }
+    .grid {
+      width: 100vw !important;
+      max-width: 960px !important;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      margin: 20px 0;
+      margin: 20px 0;
+    }
+    .delete {
+        margin: auto;
+        width: 70px;
+        height: 70px;
+        font-weight: 700;
+        border-radius: 50%;
+        box-shadow: 4px 4px 12px 0px rgba($color: #000000, $alpha: .5);
+        background-color: transparent;
+        color: white;
+        border: 2px solid red;
+    }
+    .delete:hover {
+    background-color: rgba($color: #bd4444, $alpha: .5)
     }
 }
 
