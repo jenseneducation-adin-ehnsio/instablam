@@ -1,8 +1,15 @@
 <template>
     <div class="contrast">
-        <input type="range" min="1" max="100"
-        v-model="value" @change="slideEmit" >
+        <p>{{value}}</p>
+        <input type="range" min="-50" max="50"
+        v-model="value" @change="adjustContrast" >
         <h3>contrast</h3>
+
+        <div class="flex-filter">
+            <p @click="cancel" >reset</p>
+            <p @click="$router.push('/')" >apply</p>
+        </div>
+
     </div>
 </template>
 
@@ -11,13 +18,17 @@
 
 export default {
     data: () => {return{
-        value: 50
+        value: 0
     }},
     
     methods: {
-        slideEmit() {
-            this.$store.dispatch('slideContrast', this.value)
-            this.$emit('slide-contrast', this.value)
+        cancel() {
+            this.value = 0
+            this.adjustContrast()
+            this.$router.push('/')
+        },
+        adjustContrast() {
+            this.$store.dispatch('contrast', this.value)
         }
     },
 

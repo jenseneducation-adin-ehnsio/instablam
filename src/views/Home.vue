@@ -3,7 +3,6 @@
     
     <Camera v-show="videoMode" @snap-button="takePicture" />
     <Picture v-show="!videoMode" @delete-button="deleteImg" />
-    <FilterNav v-show="!videoMode"/>
 
   </div>
 </template>
@@ -12,12 +11,11 @@
 // @ is an alias to /src
 import Camera from '@/components/Camera.vue'
 import Picture from '@/components/Picture.vue'
-import FilterNav from '@/components/FilterNav.vue'
 
 export default {
   name: 'Home',
   components: {
-    Camera, Picture, FilterNav
+    Camera, Picture
   },
   computed: {
     portrait() {
@@ -58,6 +56,7 @@ export default {
 
 <style lang="scss">
     h3{
+      font-size: 14px;
       color: rgba($color: #6c8383, $alpha: 1.0);
     }
 

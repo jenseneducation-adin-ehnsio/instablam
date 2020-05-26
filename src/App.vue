@@ -20,7 +20,7 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   margin: 0;
   text-align: center;
-  color: #2c3e50;
+  color: #344b61;
 }
 
 body {

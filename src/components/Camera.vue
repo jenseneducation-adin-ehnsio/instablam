@@ -1,14 +1,13 @@
 <template>
     <div class="camera">
+        <div class="top-nav"></div>
         <video :src-object.prop.camel="streamSrc" ref="video" :class="{ mirror: isMirrored }" />
         
         <div class="grid">
             <img src="" alt="">
             <button class="snap" @click="$emit('snap-button')" ></button>
-            <img v-if="!portrait" class="turn"  @click="changeCamera" src="@/assets/camera-turn.png" alt="">
+            <img v-if="portrait" class="turn"  @click="changeCamera" src="@/assets/camera-turn.png" alt="">
         </div>
-
-        <p>Developed by Adin Ehnsiö</p>
     </div>
 </template>
 
@@ -105,7 +104,6 @@ export default {
                 /Android/i,
                 /webOS/i,
                 /iPhone/i,
-                /iPad/i,
                 /iPod/i,
                 /BlackBerry/i,
                 /Windows Phone/i
@@ -122,22 +120,25 @@ export default {
 
 <style lang="scss" >
 .camera {
-    justify-content: center;
+    // margin-top: 40px;
     align-items: center;
     display: flex;
     flex-direction: column;
+    min-height: 90vh;
     video {
         box-shadow: 4px 4px 12px 0px rgba($color: #000000, $alpha: .5);
         width: 100vw !important;
         height: auto !important;
         max-width: 960px !important;
+        margin-bottom: 40px;
     }
     .grid {
       width: 100vw !important;
       max-width: 960px !important;
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
-      margin: 20px 0;
+      margin-top: auto;
+      margin-bottom: 60px;
         .snap {
             margin: auto;
             width: 70px;
@@ -163,6 +164,9 @@ export default {
         transform: rotateY(180deg);
         -webkit-transform:rotateY(180deg); /* Safari and Chrome */
         -moz-transform:rotateY(180deg); /* Firefox */
+    }
+    .top-nav {
+        height: 40px;
     }
 }
 

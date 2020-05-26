@@ -1,6 +1,6 @@
 <template>
   <div class="nav">
-      <router-link class="link" :to="'/'" >
+      <router-link class="link" :to="'brightness'" >
         <img src="@/assets/brightness.png" alt="brightness">
       </router-link>
       <router-link class="link" :to="'contrast'" >
@@ -16,15 +16,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .nav{
-        margin-top: 20px;
+    .nav {
+        margin-bottom: 50px;
     }
     .link {
         margin: 20px;
         img {
-            height: 30px;
+            height: 45px;
             filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(29deg) brightness(103%) contrast(101%);
-
         }
     }
 </style>

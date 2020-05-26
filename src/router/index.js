@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Brightness from '../views/Brightness.vue'
 import Contrast from '../views/Contrast.vue'
+import FilterNav from '../views/FilterNav.vue'
 
 Vue.use(VueRouter)
 
@@ -12,7 +13,8 @@ Vue.use(VueRouter)
     name: '',
     component: Home,
     children: [
-      { path: '', component: Brightness },
+      { path: '', component: FilterNav },
+      { path: 'brightness', component: Brightness },
       { path: 'contrast', component: Contrast }
     ]
   },

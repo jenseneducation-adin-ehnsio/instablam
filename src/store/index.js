@@ -7,8 +7,8 @@ export default new Vuex.Store({
   state: {
     portrait: true,
     isMirrored: true,
-    brightness: 50,
-    contrast: 50,
+    brightness: 0,
+    contrast: 0,
   },
   mutations: {
     setView(state, mob) {
@@ -38,14 +38,24 @@ export default new Vuex.Store({
     flipCamera({commit}) {
       commit("flipImage")
     },
-    slideBrightness({commit}, val) {
+    brightness({commit}, val) {
+
+        window.Caman("#canvas", function () {
+            this.revert()
+            this.brightness(val).render()
+        });
+      
       commit('saveBrightness', val)
     },
-    slideContrast({commit}, val) {
+    contrast({commit}, val) {
+
+      window.Caman("#canvas", function () {
+        this.revert()
+        this.contrast(val / 3).render()
+      });
+
       commit('saveContrast', val)
     },
   },
-  modules: {
 
-  }
 })
