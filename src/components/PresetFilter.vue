@@ -1,6 +1,6 @@
 <template>
     <div v-if="image" class="img-wrapper" >
-        <p>{{filter}}</p>
+        <p :class="{ active: chosen }" >{{filter}}</p>
         <img data-caman-hidpi-disabled="true" :id="filter" :src="image" alt="" ref="img">
     </div>
 </template>
@@ -13,6 +13,9 @@ export default {
     computed: {
         image() {
             return this.$store.state.image
+        },
+        chosen() {
+            return this.$store.getters.activeFilter(this.filter) 
         }
     },
     methods: {
@@ -36,5 +39,9 @@ export default {
 </script>
 
 <style>
+
+    .active {
+        border-bottom: white 1px solid;
+    }
 
 </style>

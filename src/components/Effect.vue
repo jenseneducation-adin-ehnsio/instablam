@@ -1,10 +1,10 @@
 <template>
         <div class="wrapper">
             <p>{{fx}}</p>
-            <div class="link ">
+            <router-link class="link" :to="fx">
                 <img :ref="fx" :src="require(`@/assets/${fx}.png`)" alt="">
-                <!-- <hr v-if="value != 0" > -->
-            </div>
+                <hr v-if="value != 0" >
+            </router-link>
         </div>
 </template>
 
@@ -14,10 +14,10 @@ export default {
         fx: String
     },
     computed: {
-        // value() {
-        //     return this.$store.getters.fx(this.fx)
-        // }
-    },
+        value() {
+            return this.$store.getters.effectValue(this.fx)
+        }
+    }
 
 }
 </script>

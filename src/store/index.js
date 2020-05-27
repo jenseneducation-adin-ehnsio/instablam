@@ -15,7 +15,21 @@ export default new Vuex.Store({
     vibrance: 0,
     sepia: 0,
     filters: ['normal', 'vintage', 'clarity', 'lomo', 'love', 'sunrise', 'nostalgia', 'hazyDays'],
+    effects: ['brightness', 'contrast', 'exposure', 'vibrance', 'sepia', 'hue'],
     chosenFilter: 'normal'
+  },
+  getters: {
+    effectValue: (state) => (id) => {
+      return state[id]
+    },
+    activeFilter: (state) => (filter) => {
+      if(state.chosenFilter == filter) {
+        return true
+      }
+      else {
+        return false
+      }
+    }
   },
   
   mutations: {
@@ -73,6 +87,9 @@ export default new Vuex.Store({
     saveVibrance(state, val){
       state.vibrance = val
     },
+    savePreset(state, filter){
+      state.chosenFilter = filter
+    }
 
 
   },
@@ -118,6 +135,11 @@ export default new Vuex.Store({
         commit('saveSepia', val)
         commit('applyFilters')
     },
+
+    presetChosen({commit}, filter) {
+      commit('savePreset', filter)
+      commit('applyFilters')
+    }
   },
 
 })

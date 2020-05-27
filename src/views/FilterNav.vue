@@ -1,92 +1,30 @@
 <template>
   <div class="nav">
-      <div class="upper-nav" :class="{ portrait: portrait, desktop: !portrait }" >
-            <PresetFilter v-for="filter in filters" :key="filter" :filter="filter"/>
-      </div>
+
+    <div class="upper-nav" :class="{ portrait: portrait, desktop: !portrait }" >
+        <PresetFilter @click.native="$store.dispatch('presetChosen', filter)" v-for="filter in filters" :key="filter" :filter="filter"/>
+    </div>
 
     <div class="bottom-nav" :class="{ portrait: portrait, desktop: !portrait }">
-        <div class="wrapper">
-            <p>brightness</p>
-            <router-link class="link" :to="'brightness'" >
-                <img src="@/assets/brightness.png" alt="brightness">
-                <hr v-if="brightness != 0" >
-            </router-link>
-        </div>
-        <div class="wrapper">
-            <p>contrast</p>
-            <router-link class="link" :to="'contrast'" >
-                <img src="@/assets/contrast.png" alt="contrast">
-                <hr v-if="contrast != 0" >
-            </router-link>
-        </div>
-        <div class="wrapper">
-            <p>exposure</p>
-            <router-link class="link" :to="'exposure'" >
-                <img src="@/assets/exposure.png" alt="exposure">
-                <hr v-if="exposure != 0" >
-            </router-link>
-        </div>
-        <div class="wrapper">
-            <p>vibrance</p>
-            <router-link class="link" :to="'vibrance'" >
-                <img src="@/assets/vibrance.png" alt="vibrance">
-                <hr v-if="vibrance != 0" >
-            </router-link>
-        </div>
-        <div class="wrapper">
-            <p>sepia</p>
-            <router-link class="link" :to="'sepia'" >
-                <img src="@/assets/sepia.png" alt="sepia">
-                <hr v-if="sepia != 0" >
-            </router-link>
-        </div>
-        <div class="wrapper">
-            <p>hue</p>
-            <router-link class="link" :to="'hue'" >
-                <img src="@/assets/hue.png" alt="hue">
-                <hr v-if="hue != 0" >
-            </router-link>
-        </div>
+        <Effect v-for="fx in effects" :key="fx" :fx="fx" />
     </div>
+
   </div>
 </template>
 
 <script>
 import PresetFilter from '@/components/PresetFilter.vue'
+import Effect from '@/components/Effect.vue'
+import { mapState } from 'vuex'
+
 
 export default {
     components: {
-        PresetFilter
+        PresetFilter, Effect
     },
 
-    computed: {
-
-        filters() {
-            return this.$store.state.filters
-        },
-        portrait() {
-            return this.$store.state.portrait
-        },
-        brightness() {
-            return this.$store.state.brightness
-        },
-        contrast() {
-            return this.$store.state.contrast
-        },
-        hue() {
-            return this.$store.state.hue
-        },
-        exposure() {
-            return this.$store.state.exposure
-        },
-        vibrance() {
-            return this.$store.state.vibrance
-        },
-        sepia() {
-            return this.$store.state.sepia
-        },
-
-        }
+    computed: mapState(['filters', 'portrait', 'effects'])
+    
 
 }
 </script>
@@ -112,6 +50,9 @@ export default {
                     color: white;
                     font-size: 10px;
                 }
+            }
+            .img-wrapper:active {
+                transform: scale(.9);
             }
         }
         .portrait {
