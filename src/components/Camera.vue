@@ -55,6 +55,7 @@ export default {
         }
     },
     async mounted() {
+        this.$router.push('/')
 
         let mobMatch = await this.mobileCheck()
         await this.$store.dispatch("checkView", mobMatch)

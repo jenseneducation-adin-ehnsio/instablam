@@ -5,12 +5,30 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    image: '',
     portrait: true,
     isMirrored: true,
     brightness: 0,
     contrast: 0,
+    hue: 0,
+
+    
+
   },
   mutations: {
+    applyFilters(state) {
+
+      window.Caman("#canvas", function () {
+        this.revert()
+        let num = parseInt(state.contrast)
+        this.contrast(num)
+        this.brightness(state.brightness)
+        this.hue(state.hue)
+        this.render()
+        }
+      );
+
+    },
     setView(state, mob) {
       if(mob && window.innerHeight > window.innerWidth) {
         state.portrait = true
@@ -18,6 +36,9 @@ export default new Vuex.Store({
       else {
         state.portrait = false
       }
+    },
+    saveImg(state, img) {
+      state.image = img
     },
     flipImage(state) {
       state.isMirrored = !state.isMirrored
@@ -27,6 +48,9 @@ export default new Vuex.Store({
     },
     saveContrast(state, val){
       state.contrast = val
+    },
+    saveHue(state, val){
+      state.hue = val
     },
 
 
@@ -38,23 +62,25 @@ export default new Vuex.Store({
     flipCamera({commit}) {
       commit("flipImage")
     },
-    brightness({commit}, val) {
-
-        window.Caman("#canvas", function () {
-            this.revert()
-            this.brightness(val).render()
-        });
-      
-      commit('saveBrightness', val)
+    saveImage({commit}, img) {
+      commit('saveImg', img)
     },
+
+
+    brightness({commit}, val) {
+        commit('saveBrightness', val)
+        commit('applyFilters')
+    },
+
+
     contrast({commit}, val) {
-
-      window.Caman("#canvas", function () {
-        this.revert()
-        this.contrast(val / 3).render()
-      });
-
-      commit('saveContrast', val)
+        commit('saveContrast', val)
+        commit('applyFilters')
+    },
+    
+    hue({commit}, val) {
+        commit('saveHue', val)
+        commit('applyFilters')
     },
   },
 
