@@ -27,10 +27,11 @@ export default {
         cancel() {
             this.value = 0
             this.adjustBrightness()
-            this.$router.push('/')
+            this.$emit('back')
         },
         adjustBrightness() {
             this.$store.dispatch('brightness', this.value)
+            this.$emit('back')
         },
     },
     created() {

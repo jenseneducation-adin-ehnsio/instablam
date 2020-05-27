@@ -15,7 +15,8 @@ export default new Vuex.Store({
     vibrance: 0,
     sepia: 0,
     filters: ['normal', 'vintage', 'clarity', 'lomo', 'love', 'sunrise', 'nostalgia', 'hazyDays'],
-    chosenFilter: 'normal'
+    effects: ['brightness', 'contrast', 'exposure', 'vibrance', 'sepia', 'hue'],
+    chosenFilter: 'normal',
   },
   
   mutations: {
@@ -28,7 +29,7 @@ export default new Vuex.Store({
         if(state.chosenFilter != 'normal') {
           this[state.chosenFilter]()
         }
-        
+
         let num = parseInt(state.contrast)
         this.contrast(num)
         this.brightness(state.brightness)

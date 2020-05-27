@@ -9,28 +9,33 @@
     <!-- Picture -->
     <canvas data-caman-hidpi-disabled="true" id="canvas" ref="canvas" ></canvas>
 
-    <!-- Filter dynamic router paths -->
-    <router-view class="filters" v-if="image" />
-    
+    <!-- Filter Navigation -->
+    <FilterNav v-if="image && !edit" @fx-click="toggleEdit"/>
+    <!-- <router-view class="filters" v-if="image" /> -->
+    <Brightness v-if="edit && brightness" @back="closeEdit"/>
+
   </div>
 </template>
 
 <script>
 import TopNav from '@/components/TopNav.vue'
+import FilterNav from '@/components/FilterNav.vue'
+import Brightness from '@/views/Brightness.vue'
+import { mapState } from 'vuex'
 
 
 export default {
-
   components: {
-    TopNav
+    TopNav, FilterNav, Brightness
   },
-  computed: {
-    image() {
-      return this.$store.state.image
-    },
-    
-  },
+  computed:  mapState(['image', 'effects']),
   
+  data () {return{
+    edit: false,
+    brightness: false,
+    contrast: false,
+  }},
+
   methods: {
     downloadImg() {
       const img = this.$refs.canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
@@ -40,12 +45,22 @@ export default {
     },
     deleteImg() {
       this.$router.push('/')
-      window.location.reload(false); 
+      window.location.reload(false);
     },
     toggleFilter() {
       this.filter = !this.filter
     },
-
+    toggleEdit(effect) {
+      this.edit = true
+      for (let i = 0; i < this.effects.length; i++) {
+        if(this.effects[i] == effect) {
+          this[effect] = true
+        }
+      }
+    },
+    closeEdit() {
+      this.edit = false
+    }
   },
 
 }
@@ -53,7 +68,6 @@ export default {
 
 <style lang="scss" scoped>
 .picture {
-    justify-content: center;
     align-items: center;
     display: flex;
     flex-direction: column;
