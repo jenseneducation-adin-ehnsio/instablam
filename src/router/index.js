@@ -5,6 +5,9 @@ import Brightness from '../views/Brightness.vue'
 import Contrast from '../views/Contrast.vue'
 import FilterNav from '../views/FilterNav.vue'
 import Hue from '../views/Hue.vue'
+import Exposure from '../views/Exposure.vue'
+import Vibrance from '../views/Vibrance.vue'
+import Sepia from '../views/Sepia.vue'
 
 Vue.use(VueRouter)
 
@@ -18,6 +21,9 @@ Vue.use(VueRouter)
       { path: 'brightness', component: Brightness },
       { path: 'contrast', component: Contrast },
       { path: 'hue', component: Hue },
+      { path: 'exposure', component: Exposure },
+      { path: 'vibrance', component: Vibrance },
+      { path: 'sepia', component: Sepia },
     ]
   },
 

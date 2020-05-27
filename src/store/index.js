@@ -11,19 +11,31 @@ export default new Vuex.Store({
     brightness: 0,
     contrast: 0,
     hue: 0,
-
-    
-
+    exposure: 0,
+    vibrance: 0,
+    sepia: 0,
+    filters: ['normal', 'vintage', 'clarity', 'lomo', 'love', 'sunrise', 'nostalgia', 'hazyDays'],
+    chosenFilter: 'normal'
   },
+  
   mutations: {
     applyFilters(state) {
 
       window.Caman("#canvas", function () {
+        
         this.revert()
+
+        if(state.chosenFilter != 'normal') {
+          this[state.chosenFilter]()
+        }
+        
         let num = parseInt(state.contrast)
         this.contrast(num)
         this.brightness(state.brightness)
         this.hue(state.hue)
+        this.exposure(state.exposure)
+        this.sepia(state.sepia)
+        this.vibrance(state.vibrance)
         this.render()
         }
       );
@@ -51,6 +63,15 @@ export default new Vuex.Store({
     },
     saveHue(state, val){
       state.hue = val
+    },
+    saveExposure(state, val){
+      state.exposure = val
+    },
+    saveSepia(state, val){
+      state.sepia = val
+    },
+    saveVibrance(state, val){
+      state.vibrance = val
     },
 
 
@@ -80,6 +101,21 @@ export default new Vuex.Store({
     
     hue({commit}, val) {
         commit('saveHue', val)
+        commit('applyFilters')
+    },
+
+    exposure({commit}, val) {
+        commit('saveExposure', val)
+        commit('applyFilters')
+    },
+
+    vibrance({commit}, val) {
+        commit('saveVibrance', val)
+        commit('applyFilters')
+    },
+
+    sepia({commit}, val) {
+        commit('saveSepia', val)
         commit('applyFilters')
     },
   },

@@ -10,7 +10,7 @@
     <canvas data-caman-hidpi-disabled="true" id="canvas" ref="canvas" ></canvas>
 
     <!-- Filter dynamic router paths -->
-    <router-view class="filters"/>
+    <router-view class="filters" v-if="image" />
     
   </div>
 </template>
@@ -27,7 +27,8 @@ export default {
   computed: {
     image() {
       return this.$store.state.image
-    }
+    },
+    
   },
   
   methods: {
@@ -63,7 +64,6 @@ export default {
         width: 100vw !important;
         max-width: 960px !important;
         max-height: 540px !important;
-        margin-bottom: 10px;
 
     }
 

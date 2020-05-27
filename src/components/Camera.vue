@@ -1,7 +1,7 @@
 <template>
     <div class="camera">
         <div class="top-nav"></div>
-        <video :src-object.prop.camel="streamSrc" ref="video" :class="{ mirror: isMirrored }" />
+        <video autoplay :src-object.prop.camel="streamSrc" ref="video" :class="{ mirror: isMirrored }" />
         
         <div class="grid">
             <img src="" alt="">
@@ -167,7 +167,7 @@ export default {
         -moz-transform:rotateY(180deg); /* Firefox */
     }
     .top-nav {
-        height: 40px;
+        height: 30px;
     }
 }
 

@@ -1,4 +1,4 @@
-let cacheName = 'instablam-v4';
+let cacheName = 'instablam-v5';
 
 var contentToCache = [
   '/offline.html',

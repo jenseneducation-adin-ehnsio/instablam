@@ -47,7 +47,7 @@ export default {
         margin-top: 40px;
         p {
             margin: 0 40px;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             cursor: pointer;
             color: rgb(207, 200, 200);
         }

@@ -17,8 +17,8 @@ export default {
       width: 100vw !important;
       max-width: 960px;
       display: flex;
-      font-size: .8rem;
-      height: 40px;
+      font-size: .7rem;
+      height: 30px;
       align-items: center;
       padding: 10px;
         p {
@@ -39,6 +39,7 @@ export default {
             margin-right: auto;
             font-weight: 700;
             color: white;
+            font-size: .7rem;
         }
         .back:hover {
         cursor: pointer;
