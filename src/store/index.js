@@ -51,6 +51,7 @@ export default new Vuex.Store({
         this.sepia(state.sepia)
         this.vibrance(state.vibrance)
         this.render()
+        
         }
       );
 

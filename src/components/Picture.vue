@@ -34,7 +34,7 @@ export default {
   methods: {
     downloadImg() {
       const img = this.$refs.canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
-      this.$refs.dl.setAttribute('download','MyImage.png');
+      this.$refs.dl.setAttribute('download', Date.now() + '.png');
       this.$refs.dl.setAttribute('href', img);
       this.$refs.dl.click();
     },

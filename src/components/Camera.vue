@@ -1,10 +1,10 @@
 <template>
     <div class="camera">
         <div class="top-nav"></div>
-        <video autoplay :src-object.prop.camel="streamSrc" ref="video" :class="{ mirror: isMirrored }" />
+        <video playsinline :src-object.prop.camel="streamSrc" ref="video" :class="{ mirror: isMirrored }" />
         
         <div class="grid">
-            <img src="" alt="">
+            <img>
             <button class="snap" @click="$emit('snap-button')" ></button>
             <img v-if="portrait" class="turn"  @click="changeCamera" src="@/assets/camera-turn.png" alt="">
         </div>
@@ -54,8 +54,8 @@ export default {
             return this.$store.state.isMirrored
         }
     },
+    // * Waits for confirm on what devide user is on then calls for startStream function
     async mounted() {
-        this.$router.push('/')
 
         let mobMatch = await this.mobileCheck()
         await this.$store.dispatch("checkView", mobMatch)
@@ -69,10 +69,11 @@ export default {
 
     },
     methods: {
+        // *Stops and starts new stream, sends dispatch to store to mirror image
         changeCamera() {
 
-            let track = this.streamSrc.getTracks()[0];
-            track.stop();
+
+            this.streamSrc.getTracks().forEach(track => track.stop()) 
             this.$store.dispatch('flipCamera')
             
             if(this.mobileFormat.video.facingMode == 'user') {
@@ -87,18 +88,21 @@ export default {
             }
             
         },
+        // * Starts the stream in either mobile or desktop format
         async startStream(format) {
             
             try {
                 let stream = await navigator.mediaDevices.getUserMedia(format);
                 this.streamSrc = stream;
+
                 this.$refs.video.onloadedmetadata = () => {
-                this.$refs.video.play();
+                    this.$refs.video.play();
                 };
             } catch (error) {
                 console.log(error);
             }
         },
+        // * Function to see if user is on phone
         mobileCheck() {
     
         const toMatch = [
@@ -114,7 +118,7 @@ export default {
                 return navigator.userAgent.match(toMatchItem);
             });
 
-        }
+        },
     }
 }
 </script>
@@ -140,6 +144,16 @@ export default {
       grid-template-columns: 1fr 1fr 1fr;
       margin-top: auto;
       margin-bottom: 60px;
+
+        .not {
+            margin: auto;
+            height: 30px;
+            filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(29deg) brightness(103%) contrast(101%);
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
         .snap {
             margin: auto;
             width: 70px;

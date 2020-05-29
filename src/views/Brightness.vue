@@ -7,7 +7,7 @@
         <h3>brightness</h3>
 
         <div class="flex-filter">
-            <p @click="cancel" >reset</p>
+            <p @click="cancel">reset</p>
             <p @click="$router.push('/')" >apply</p>
         </div>
 

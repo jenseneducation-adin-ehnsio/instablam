@@ -1,7 +1,7 @@
 <template>
     <div class="sepia">
         <p>{{value}}</p>
-        <input type="range" min="0" max="100"
+        <input type="range" min="-50" max="50"
         v-model="value" @change="adjustSepia" >
         <h3>sepia</h3>
 
@@ -33,8 +33,7 @@ export default {
     },
 
     created() {
-        this.value = this.$store.state.Sepia
-        
+        this.value = this.$store.state.sepia
     }
 }
 
